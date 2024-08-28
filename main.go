@@ -168,6 +168,9 @@ type Swimming struct {
 // Это переопределенный метод Calories() из Training. **WRONG COMMENT**
 func (s Swimming) meanSpeed() float64 {
 	durationInH := s.Duration.Hours()
+	if durationInH == 0 {
+		return 0
+	}
 	//first step
 	firstStep := float64(s.LengthPool) * float64(s.CountPool)
 	//second step
@@ -195,7 +198,9 @@ func (s Swimming) Calories() float64 {
 // Это переопределенный метод TrainingInfo() из Training.
 func (s Swimming) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
-	return s.Training.TrainingInfo()
+	return InfoMessage{
+		s.TrainingType, s.Duration, s.distance(), s.meanSpeed(), s.Calories(),
+	}
 }
 
 // ReadData возвращает информацию о проведенной тренировке.
